@@ -1,0 +1,14 @@
+# Secrets
+.env
+.env.local
+.env.*.local
+
+# Python local artifacts
+__pycache__/
+.venv/
+*.pyc
+demo_mappings.db
+
+# OS/editor noise
+.DS_Store
+Thumbs.db

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AR Ingestion Demo</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <h1>AR Invoice Ingestion Demo</h1>
+      <p>Upload PDFs, run Gemini extraction server-side, review mapped rows, and download Excel output.</p>
+    </header>
+
+    <section class="card">
+      <h2>1) Sample Mapping Database (SQLite)</h2>
+      <h3>Clients (5 seeded)</h3>
+      <table id="clientsTable">
+        <thead>
+          <tr></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <h3>GL Mappings</h3>
+      <table id="glTable">
+        <thead>
+          <tr></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>2) Upload Invoices</h2>
+      <div class="row">
+        <input id="pdfInput" type="file" accept=".pdf,application/pdf" multiple>
+        <button id="runBtn" type="button">Run Gemini OCR + Lookup</button>
+        <button id="clearFilesBtn" type="button">Clear Selected Files</button>
+      </div>
+      <div id="fileListMeta" class="hint">No files selected.</div>
+      <div class="table-wrap">
+        <table id="fileListTable">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="hint">No API key needed for users. The Gemini key stays on the server.</p>
+      <div id="status" class="status">Idle.</div>
+    </section>
+
+    <section class="card">
+      <h2>3) Parsed Invoice Fields</h2>
+      <div class="table-wrap">
+        <table id="parsedTable">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>4) Journal Output Preview</h2>
+      <div class="row">
+        <button id="downloadExcelBtn" type="button" disabled>Download Excel Output</button>
+      </div>
+      <div class="table-wrap">
+        <table id="outputTable">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
