@@ -1,45 +1,35 @@
-# AR Invoice Demo (Public Repo Version)
+# AR Invoice Ingestion Demo
 
-## What this demo does
-This is a simple web demo for invoice ingestion.
+Small MVP for invoice ingestion and accounting row generation.
 
-You can:
-1. Upload multiple invoice PDFs at once (or add more in several steps).
-2. Extract structured invoice data with Gemini.
-3. Match client names against a small mapping table.
-4. Generate accounting-ready rows.
-5. Download an Excel output.
+## Features
+1. Upload one or many invoice PDFs.
+2. Extract invoice fields with Gemini.
+3. Match customer names against predefined client mappings.
+4. Generate AR journal-style output rows.
+5. Export results to Excel.
 
-## What is inside
-- A web page (`index.html`) that anyone can use.
-- A lightweight API (`/api/*`) for Cloudflare Pages Functions.
-- A sample mapping set with 5 clients.
-- Rules for unknown clients:
-  - `upload = no`
-  - note includes `CLIENT NOT IN MAPPING`
-  - mapping-dependent fields fallback to `UNKNOWN`
+## Project structure
+- `index.html`, `app.js`, `styles.css`: frontend UI and table rendering.
+- `functions/api/*`: Cloudflare Functions API endpoints.
+- `functions/_shared/mappings.js`: client + GL mappings and shared helpers.
+- `server.py`: local FastAPI backend variant.
+- `db.py`, `init_db.py`: local SQLite setup and lookup logic.
+- `Heron Data - AR ingestion layout.xlsx`: Excel layout template.
 
-## Safe for a public repository
-- Secrets are **not** in code.
-- `.env` is ignored by `.gitignore`.
-- Gemini key is read from Cloudflare environment variables (server side), not exposed to browser users.
+## Local run
+1. Create and activate a Python virtual environment.
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Copy `.env.example` to `.env` and set values.
+4. Start the app:
+   ```powershell
+   .\run_demo.ps1
+   ```
 
-## Deploy on Cloudflare Pages
-1. Create a new Cloudflare Pages project from this repo.
-2. Set environment variables in Cloudflare:
-   - `GEMINI_API_KEY` (required)
-   - `GEMINI_MODEL` (optional, default works)
-3. Deploy.
-4. Keep `GEMINI_API_KEY` only in Cloudflare environment variables (or local `.env` for local-only testing). Do not commit `.env`.
-
-No backend server setup is needed: API routes run as Cloudflare Pages Functions.
-
-## Local run (optional)
-If you want to test locally with Python backend:
-1. Copy `.env.example` to `.env`
-2. Add your key
-3. Run `.\run_demo.ps1`
-
-## Notes
-- In Cloudflare mode, the API returns JSON rows and the browser creates the Excel download.
-- In local Python mode, template-based Excel generation is available.
+## API endpoints
+- `GET /api/health`
+- `GET /api/mappings`
+- `POST /api/process` (multipart form with `files`)
