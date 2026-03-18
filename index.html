@@ -26,8 +26,13 @@
     <section class="card">
       <div class="card-head">
         <span class="card-label">Step 1</span>
-        <h2>Sample Mapping Database (SQLite)</h2>
+        <h2>Sample Mapping Database</h2>
       </div>
+      <div class="row seed-actions" aria-label="Seed database actions">
+        <button class="btn btn-demo-disabled" type="button" disabled>Seed Clients</button>
+        <button class="btn btn-demo-disabled" type="button" disabled>Seed GL Mappings</button>
+      </div>
+      <p class="hint">Pre-seeded for demo mode.</p>
       <h3>Clients (5 seeded)</h3>
       <table id="clientsTable">
         <thead>
@@ -62,7 +67,7 @@
           <tbody></tbody>
         </table>
       </div>
-      <p class="hint">No API key needed for users. The Gemini key stays on the server.</p>
+      <p id="processingHint" class="hint">Live processing runs server-side when enabled. Expand Sample run below to review a completed invoice flow.</p>
       <div id="status" class="status">Idle.</div>
     </section>
 
@@ -93,6 +98,73 @@
           <tbody></tbody>
         </table>
       </div>
+    </section>
+
+    <section class="sample-run-shell">
+      <details id="sampleRun" class="sample-details">
+        <summary>
+          <span class="card-label">Sample run</span>
+          <span class="sample-summary-copy">View a completed invoice flow using mock output from AR_Invoice_HERINV-260202_SGD.pdf</span>
+        </summary>
+        <div class="sample-details-body">
+          <div class="sample-demo-layer">
+            <p class="hint sample-note">This section stays available when live Gemini processing is disabled.</p>
+
+            <figure class="sample-preview-card">
+                <img
+                  class="sample-preview-image"
+                  src="./assets/sample-run/AR_OCR_invoice_screen.png"
+                  alt="Sample AR OCR invoice screen preview"
+                >
+              <figcaption class="hint sample-preview-caption">Preview screen used to illustrate the sample AR OCR invoice flow.</figcaption>
+            </figure>
+
+            <section class="card sample-card">
+              <div class="card-head">
+                <span class="card-label">Step 2</span>
+                <h2>Upload Invoices</h2>
+              </div>
+              <div id="sampleFileListMeta" class="hint">Loading sample invoice...</div>
+              <div class="table-wrap">
+                <table id="sampleFileListTable">
+                  <thead></thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+              <div id="sampleStatus" class="status">Loading sample run...</div>
+            </section>
+
+            <section class="card sample-card">
+              <div class="card-head">
+                <span class="card-label">Step 3</span>
+                <h2>Parsed Invoice Fields</h2>
+              </div>
+              <div class="table-wrap">
+                <table id="sampleParsedTable">
+                  <thead></thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </section>
+
+            <section class="card sample-card">
+              <div class="card-head">
+                <span class="card-label">Step 4</span>
+                <h2>Journal Output Preview</h2>
+              </div>
+              <div class="row">
+                <button id="downloadSampleExcelBtn" class="btn btn-primary" type="button">Download Sample Excel Output</button>
+              </div>
+              <div class="table-wrap">
+                <table id="sampleOutputTable">
+                  <thead></thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </div>
+      </details>
     </section>
   </main>
 
