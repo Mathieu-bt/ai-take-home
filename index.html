@@ -23,82 +23,98 @@
       </div>
     </header>
 
-    <section class="card">
-      <div class="card-head">
-        <span class="card-label">Step 1</span>
-        <h2>Sample Mapping Database</h2>
-      </div>
-      <div class="row seed-actions" aria-label="Seed database actions">
-        <button class="btn btn-demo-disabled" type="button" disabled>Seed Clients</button>
-        <button class="btn btn-demo-disabled" type="button" disabled>Seed GL Mappings</button>
-      </div>
-      <p class="hint">Pre-seeded for demo mode.</p>
-      <h3>Clients (5 seeded)</h3>
-      <table id="clientsTable">
-        <thead>
-          <tr></tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+    <details class="card step-panel" open>
+      <summary class="step-summary">
+        <div class="card-head">
+          <span class="card-label">Step 1</span>
+          <h2>Mapping Database</h2>
+        </div>
+      </summary>
+      <div class="step-body">
+        <div class="row seed-actions" aria-label="Seed database actions">
+          <button class="btn btn-demo-disabled" type="button" disabled>Seed Clients</button>
+          <button class="btn btn-demo-disabled" type="button" disabled>Seed GL Mappings</button>
+        </div>
+        <p class="hint">Pre-seeded for demo mode.</p>
+        <h3>Clients (5 seeded)</h3>
+        <table id="clientsTable">
+          <thead>
+            <tr></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
 
-      <h3>GL Mappings</h3>
-      <table id="glTable">
-        <thead>
-          <tr></tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </section>
-
-    <section class="card">
-      <div class="card-head">
-        <span class="card-label">Step 2</span>
-        <h2>Upload Invoices</h2>
-      </div>
-      <div class="row">
-        <input id="pdfInput" type="file" accept=".pdf,application/pdf" multiple>
-        <button id="runBtn" class="btn btn-primary" type="button">Run Gemini OCR + Lookup</button>
-        <button id="clearFilesBtn" class="btn btn-ghost" type="button">Clear Selected Files</button>
-      </div>
-      <div id="fileListMeta" class="hint">No files selected.</div>
-      <div class="table-wrap">
-        <table id="fileListTable">
-          <thead></thead>
+        <h3>GL Mappings</h3>
+        <table id="glTable">
+          <thead>
+            <tr></tr>
+          </thead>
           <tbody></tbody>
         </table>
       </div>
-      <p id="processingHint" class="hint">Live processing runs server-side when enabled. Expand Sample run below to review a completed invoice flow.</p>
-      <div id="status" class="status">Idle.</div>
-    </section>
+    </details>
 
-    <section class="card">
-      <div class="card-head">
-        <span class="card-label">Step 3</span>
-        <h2>Parsed Invoice Fields</h2>
+    <details class="card step-panel" open>
+      <summary class="step-summary">
+        <div class="card-head">
+          <span class="card-label">Step 2</span>
+          <h2>Upload Invoices</h2>
+        </div>
+      </summary>
+      <div class="step-body">
+        <div class="row">
+          <input id="pdfInput" type="file" accept=".pdf,application/pdf" multiple>
+          <button id="runBtn" class="btn btn-primary btn-live-disabled" type="button" disabled>Run Gemini OCR + Lookup</button>
+          <button id="clearFilesBtn" class="btn btn-ghost" type="button">Clear Selected Files</button>
+          <span id="liveProcessingBadge" class="status-chip status-chip-disabled">Live processing disabled</span>
+        </div>
+        <div id="fileListMeta" class="hint">No files selected.</div>
+        <div class="table-wrap">
+          <table id="fileListTable">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div id="status" class="status">Idle.</div>
       </div>
-      <div class="table-wrap">
-        <table id="parsedTable">
-          <thead></thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </section>
+    </details>
 
-    <section class="card">
-      <div class="card-head">
-        <span class="card-label">Step 4</span>
-        <h2>Journal Output Preview</h2>
+    <details class="card step-panel" open>
+      <summary class="step-summary">
+        <div class="card-head">
+          <span class="card-label">Step 3</span>
+          <h2>Parsed Invoice Fields</h2>
+        </div>
+      </summary>
+      <div class="step-body">
+        <div class="table-wrap">
+          <table id="parsedTable">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
       </div>
-      <div class="row">
-        <button id="downloadExcelBtn" class="btn btn-primary" type="button" disabled>Download Excel Output</button>
+    </details>
+
+    <details class="card step-panel" open>
+      <summary class="step-summary">
+        <div class="card-head">
+          <span class="card-label">Step 4</span>
+          <h2>Journal Output Preview</h2>
+        </div>
+      </summary>
+      <div class="step-body">
+        <div class="row">
+          <button id="downloadExcelBtn" class="btn btn-primary" type="button" disabled>Download Excel Output</button>
+        </div>
+        <div class="table-wrap">
+          <table id="outputTable">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
       </div>
-      <div class="table-wrap">
-        <table id="outputTable">
-          <thead></thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </section>
+    </details>
 
     <section class="sample-run-shell">
       <details id="sampleRun" class="sample-details">

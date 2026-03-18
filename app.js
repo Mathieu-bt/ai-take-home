@@ -125,7 +125,7 @@ const el = {
   fileListHead: document.querySelector("#fileListTable thead"),
   fileListBody: document.querySelector("#fileListTable tbody"),
   runBtn: document.getElementById("runBtn"),
-  processingHint: document.getElementById("processingHint"),
+  liveProcessingBadge: document.getElementById("liveProcessingBadge"),
   status: document.getElementById("status"),
   parsedHead: document.querySelector("#parsedTable thead"),
   parsedBody: document.querySelector("#parsedTable tbody"),
@@ -231,23 +231,13 @@ function formatProcessError(status, errText) {
   return `Process failed (${status}): ${detail}`;
 }
 
-function setProcessingAvailability(health) {
-  const hasApiKey = Boolean(health?.has_api_key);
-  el.runBtn.disabled = !hasApiKey;
-  el.runBtn.title = hasApiKey ? "" : "Live Gemini processing is disabled in this demo.";
-  if (el.processingHint) {
-    el.processingHint.textContent = hasApiKey
-      ? "Live processing runs server-side. Expand Sample run below to review a completed invoice flow."
-      : "Live Gemini processing is disabled in this demo. Expand Sample run below to review a completed invoice flow.";
+function applyDemoModeState() {
+  el.runBtn.disabled = true;
+  el.runBtn.title = "Live processing is disabled in this demo.";
+  if (el.liveProcessingBadge) {
+    el.liveProcessingBadge.textContent = "Live processing disabled";
   }
-  if (el.sampleRun && !hasApiKey) {
-    el.sampleRun.open = true;
-  }
-  setStatus(
-    hasApiKey
-      ? `Ready.\nGemini model: ${health.gemini_model}\nLive processing: enabled`
-      : `Demo mode.\nGemini model: ${health.gemini_model}\nLive processing: disabled\nExpand Sample run below to review a completed invoice flow.`
-  );
+  setStatus("Demo mode.");
 }
 
 async function loadMappings() {
@@ -410,9 +400,8 @@ async function boot() {
   try {
     renderSampleRun();
     renderSelectedFiles();
-    const health = await fetch("/api/health").then((r) => r.json());
     await loadMappings();
-    setProcessingAvailability(health);
+    applyDemoModeState();
   } catch (err) {
     console.error(err);
     setStatus(`Startup error: ${err.message}`);
